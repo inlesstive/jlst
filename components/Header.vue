@@ -1,5 +1,5 @@
 <script setup>
-
+const config = useRuntimeConfig();
 const store = useCounterStore()
 // we could also extract the data, but it's already present in the store
 
@@ -17,28 +17,28 @@ onBeforeMount(() => {
     <header class="py-[10px] lg:py-[15px]">
         <div class="flex items-center justify-between container">
             <NuxtLink to="/" class="flex items-center gap-[15px]">
-                <img :src=" 'https://strapi.cap.obet-hg.ru' + info?.Logo_image?.data?.attributes?.url" alt="" class="w-[90px] lg:w-[180px]">
-                <span class="text-sm text-black leading-[135%] hidden lg:block">
-                    Продажа запасных частей <br>для складской техники</span>
+                <img :src="config.public.upload + info?.Logo_image?.data?.attributes?.url" alt="" class="w-[90px] lg:w-[180px]">
+                <span class="text-sm text-black leading-[135%] hidden lg:block" v-html="info?.logo_text.replace(/\n/g, '<br>')"></span>
+                    
             </NuxtLink>
             <div class="flex items-center gap-[30px]">
-                <a href="tel:+74950000000" class="flex items-center gap-[5px]">
+                <a :href="'tel:' + info?.phone" class="flex items-center gap-[5px]">
                     <img src="~/assets/images/phone.svg" alt="">
-                    <span class="font-semibold text-base leading-6 tracking-[-0.2px] text-black hidden lg:block">+7 (495) 000-00-00</span>
+                    <span class="font-semibold text-base leading-6 tracking-[-0.2px] text-black hidden lg:block">{{info?.phone}}</span>
                 </a>
                 <ul class="flex items-center gap-[15px]">
                     <li>
-                        <a href="#">
+                        <a :href="info?.mail">
                             <img src="~/assets/images/mail.svg" alt="">
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a :href="info?.telegram">
                             <img src="~/assets/images/telegram.svg" alt="">
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a :href="info?.whatsapp">
                             <img src="~/assets/images/whatsapp.svg" alt="">
                         </a>
                     </li>

@@ -9,20 +9,32 @@ import 'swiper/css';
 
 import 'swiper/css/navigation';
 import 'swiper/css/effect-fade';
+import { useHomeStore} from '../state/home'
 
 // import required modules
 import { EffectFade, Navigation } from 'swiper/modules';
-import { useCounterStore } from '../state/fullinfo'
+
 
 export default {
     components: {
         Swiper,
         SwiperSlide
     },
+    
     setup() {
         const prev = ref(null);
         const next = ref(null);
-        const store = null
+        const config = useRuntimeConfig();
+        const store = useHomeStore()
+        // we could also extract the data, but it's already present in the store
+
+
+        const home = computed(() => {
+            return store.data;
+        });
+        onBeforeMount(() => {
+            store.fetchData();
+        });
 
         onMounted(() => {
             const store = useCounterStore()
@@ -33,6 +45,8 @@ export default {
             prev,
             next,
             modules: [EffectFade, Navigation],
+            home,
+            config
         };
     },
 }
@@ -48,7 +62,7 @@ export default {
             <img src="~/assets/images/home-bg.png" alt="" class="absolute top-0 left-0 w-full h-full object-cover z-[-1]">
             <div class="container">
                 <div class="max-w-[785px] mx-auto">
-                    <h2 class="text-center text-[32px] lg:text-[52px] font-semibold mb-[5px] leading-[115%] lg:leading-[64px] uppercase">Поиск запчастей по номеру</h2>
+                    <h2 class="text-center text-[32px] lg:text-[52px] font-semibold mb-[5px] leading-[115%] lg:leading-[64px] uppercase">{{home?.title}}</h2>
                     <p class="text-center text-lg lg:text-2xl leading-[115%] mb-[10px] lg:mb-[30px]">введите номер запчасти для поиска по каталогу</p>
                     <div class="w-full lg:bg-white flex flex-col lg:flex-row items-center lg:rounded-[5px]">
                         <select name="" id="" class="border-b lg:border-b-0 border-color-4 lg:border-r lg:border-color-4 border-solid text-sm text-black h-[60px] w-full lg:w-[158px] flex-shrink-0 outline-none px-5 rounded-[5px_5px_0_0] lg:rounded-none form-select">
