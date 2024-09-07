@@ -2,9 +2,8 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 
 
-export const useCounterStore = defineStore('counter', () => {
-    const backUrl = 'https://strapi.cap.obet-hg.ru/'
-    const data = ref(0)
+export const useCounterStore = defineStore('fullinfo', () => {
+    const data = ref()
     function fetchData() {
         axios.get('https://strapi.cap.obet-hg.ru/api/info?populate=*', {
             headers: {
@@ -21,5 +20,5 @@ export const useCounterStore = defineStore('counter', () => {
           });
     }
   
-    return { data, backUrl, fetchData }
+    return { data, fetchData }
   })

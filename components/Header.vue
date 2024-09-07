@@ -1,23 +1,25 @@
 <script setup>
-import { useCounterStore } from '../state/fullinfo'
 
-const store = null
+const store = useCounterStore()
+// we could also extract the data, but it's already present in the store
 
-onMounted(() => {
-    const store = useCounterStore()
-    store.fetchData()
 
-    console.log(store.Logo_image.data.attributes.url);
-    
-})
+const info = computed(() => {
+  return store.data;
+});
+onBeforeMount(() => {
+  store.fetchData();
+});
 </script>
+
 
 <template>
     <header class="py-[10px] lg:py-[15px]">
         <div class="flex items-center justify-between container">
             <NuxtLink to="/" class="flex items-center gap-[15px]">
-                <img :src="store" alt="" class="w-[90px] lg:w-[180px]">
-                <span class="text-sm text-black leading-[135%] hidden lg:block">Продажа запасных частей <br>для складской техники</span>
+                <img :src=" 'https://strapi.cap.obet-hg.ru' + info?.Logo_image?.data?.attributes?.url" alt="" class="w-[90px] lg:w-[180px]">
+                <span class="text-sm text-black leading-[135%] hidden lg:block">
+                    Продажа запасных частей <br>для складской техники</span>
             </NuxtLink>
             <div class="flex items-center gap-[30px]">
                 <a href="tel:+74950000000" class="flex items-center gap-[5px]">
