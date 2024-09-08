@@ -15,9 +15,10 @@ onBeforeMount(() => {
 
 <template>
     <header class="py-[10px] lg:py-[15px]">
+        {{   }}
         <div class="flex items-center justify-between container">
             <NuxtLink to="/" class="flex items-center gap-[15px]">
-                <img :src="config.public.upload + info?.Logo_image?.data?.attributes?.url" alt="" class="w-[90px] lg:w-[180px]">
+                <img :src="config.public.upload + info?.logo?.data?.attributes?.url" alt="" class="w-[90px] lg:w-[180px]">
                 <span class="text-sm text-black leading-[135%] hidden lg:block" v-html="info?.logo_text.replace(/\n/g, '<br>')"></span>
                     
             </NuxtLink>
