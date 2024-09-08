@@ -5,10 +5,10 @@ import axios from 'axios'
 export const useHomeStore = defineStore('home', () => {
     const data = ref()
     function fetchData() {
-        axios.get('https://strapi.cap.obet-hg.ru/api/home?populate=*', {
+        axios.get('http://localhost:1337/api/home?populate=*', {
             headers: {
               'accept': 'application/json',
-              'Authorization': 'Bearer b925908d3f7a605e39b3c0b4b7207c4bba78a999689b22577cff87bc18d56dca94605d4bb30c7858f9800502b3f796645c2e356f414b3f1b9ad657d19a1f7588146aacdc9d656c4640a6f744b16c53a09c0bddf8a2cc8075a536277be7427fce2235816cea4fdf29ea68b494331f5a2bfd3b3bf4a23dc7de62c0570c5b161ee3'
+              'Authorization': 'Bearer e60a1d2503e9fa8d9a52cad281e713edf121b7533b0f33585e6269e044f6e6007ba541adea53e433058a8e78708cd6cd70a54f39aad43419387e57eb2b0937413d2d55db700efacf845179d62b91fead8b447478a61e26f51981b88e801a93d103819e53831b58e5946d35d7107af1b7a69cb7495b1604ee20ae7797f6c66f71'
             }
           })
           .then(response => {
