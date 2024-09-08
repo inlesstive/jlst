@@ -29,11 +29,11 @@ export default {
         // we could also extract the data, but it's already present in the store
 
 
-        const home = computed(() => {
-            return store.data;
-        });
+        const home = computed(() => store.data);
+        const spare_list = computed(() => store.spare_list);
         onBeforeMount(() => {
             store.fetchData();
+            store.fetchSpareList()
         });
 
 
@@ -42,7 +42,8 @@ export default {
             next,
             modules: [EffectFade, Navigation],
             home,
-            config
+            config,
+            spare_list
         };
     },
 }
@@ -57,8 +58,8 @@ export default {
             <img src="~/assets/images/home-bg.png" alt="" class="absolute top-0 left-0 w-full h-full object-cover z-[-1]">
             <div class="container">
                 <div class="max-w-[785px] mx-auto">
-                    <h2 class="text-center text-[32px] lg:text-[52px] font-semibold mb-[5px] leading-[115%] lg:leading-[64px] uppercase">{{home?.title}}</h2>
-                    <p class="text-center text-lg lg:text-2xl leading-[115%] mb-[10px] lg:mb-[30px]">введите номер запчасти для поиска по каталогу</p>
+                    <h2 class="text-center text-[32px] lg:text-[52px] font-semibold mb-[5px] leading-[115%] lg:leading-[64px] uppercase">{{home?.hero_title}}</h2>
+                    <p class="text-center text-lg lg:text-2xl leading-[115%] mb-[10px] lg:mb-[30px]">{{ home?.hero_sub_title }}</p>
                     <div class="w-full lg:bg-white flex flex-col lg:flex-row items-center lg:rounded-[5px]">
                         <select name="" id="" class="border-b lg:border-b-0 border-color-4 lg:border-r lg:border-color-4 border-solid text-sm text-black h-[60px] w-full lg:w-[158px] flex-shrink-0 outline-none px-5 rounded-[5px_5px_0_0] lg:rounded-none form-select">
                             <option value="" selected hidden>Новая запчасть</option>
@@ -72,7 +73,7 @@ export default {
             </div>
         </section>
         <!-- Home end -->
-
+        {{ spare_list }}
         <!-- Spare parts -->
         <section class="pb-[30px] lg:pb-[93px]">
             <div class="container">
@@ -89,46 +90,15 @@ export default {
                             nextEl: next,
                         }"
                     >
-                        <swiper-slide class="min-h-[500px] lg:min-h-[480px] relative z-[1]">
+                        <swiper-slide class="min-h-[500px] lg:min-h-[480px] relative z-[1]" v-for="item in spare_list">
                             <img src="~/assets/images/slider-bg.png" alt="" class="absolute w-full h-full z-[-1] top-0 left-0">
                             <div class="absolute top-8 lg:top-0 left-0 lg:left-[120px] w-full lg:w-[480px] xl:w-[616px] h-full flex flex-col lg:justify-center items-center lg:items-start gap-[15px] lg:gap-[30px] px-[6px] lg:px-0">
-                                <h3 class="text-4xl lg:text-[56px] leading-10 lg:leading-[64px] font-normal lg:font-semibold tracking-[-1px] text-center lg:text-start">Запасные части для вилочных погрузчиков</h3>
-                                <Btn class="w-[268px] h-[59px]">подобрать</Btn>
+                                <h3 class="text-4xl lg:text-[56px] leading-10 lg:leading-[64px] font-normal lg:font-semibold tracking-[-1px] text-center lg:text-start">{{ item.attributes.spare_list_title }}</h3>
+                                <Btn class="w-[268px] h-[59px]">{{ item.attributes.spare_list_button }}</Btn>
                             </div>
-                            <img src="~/assets/images/spare-swp-1.png" alt="" class="h-[329px] lg:h-auto w-full lg:w-[580px] xl:w-[634px] object-contain absolute -bottom-6 lg:bottom-auto lg:top-2/4 lg:-translate-y-2/4 lg:right-[60px] xl:right-[120px] z-[-1]">
+                            <img :src="config.public.upload + item.attributes.spare_list_img.data.attributes.url" alt="" class="h-[329px] lg:h-auto w-full lg:w-[580px] xl:w-[634px] object-contain absolute -bottom-6 lg:bottom-auto lg:top-2/4 lg:-translate-y-2/4 lg:right-[60px] xl:right-[120px] z-[-1]">
                         </swiper-slide>
-                        <swiper-slide class="min-h-[500px] lg:min-h-[480px] relative z-[1]">
-                            <img src="~/assets/images/slider-bg.png" alt="" class="absolute w-full h-full z-[-1] top-0 left-0">
-                            <div class="absolute top-8 lg:top-0 left-0 lg:left-[120px] w-full lg:w-[480px] xl:w-[616px] h-full flex flex-col lg:justify-center items-center lg:items-start gap-[15px] lg:gap-[30px] px-[6px] lg:px-0">
-                                <h3 class="text-4xl lg:text-[56px] leading-10 lg:leading-[64px] font-normal lg:font-semibold tracking-[-1px] text-center lg:text-start">Запасные части <br> для ричтраков</h3>
-                                <Btn class="w-[268px] h-[59px]">подобрать</Btn>
-                            </div>
-                            <img src="~/assets/images/spare-swp-2.png" alt="" class="h-[329px] lg:h-auto w-full lg:w-[460px] xl:w-[463px] object-contain absolute bottom-0 lg:bottom-auto lg:top-2/4 lg:-translate-y-2/4 lg:right-[60px] xl:right-[180px] z-[-1]">
-                        </swiper-slide>
-                        <swiper-slide class="min-h-[500px] lg:min-h-[480px] relative z-[1]">
-                            <img src="~/assets/images/slider-bg.png" alt="" class="absolute w-full h-full z-[-1] top-0 left-0">
-                            <div class="absolute top-8 lg:top-0 left-0 lg:left-[120px] w-full lg:w-[480px] xl:w-[616px] h-full flex flex-col lg:justify-center items-center lg:items-start gap-[15px] lg:gap-[30px] px-[6px] lg:px-0">
-                                <h3 class="text-4xl lg:text-[56px] leading-10 lg:leading-[64px] font-normal lg:font-semibold tracking-[-1px] text-center lg:text-start">Запасные части для штабеллеров</h3>
-                                <Btn class="w-[268px] h-[59px]">подобрать</Btn>
-                            </div>
-                            <img src="~/assets/images/spare-swp-3.png" alt="" class="h-[329px] lg:h-auto w-full lg:w-[450px] xl:w-[459px] object-contain absolute bottom-0 lg:bottom-auto lg:top-2/4 lg:-translate-y-2/4 lg:right-[100px] xl:right-[190px] z-[-1]">
-                        </swiper-slide>
-                        <swiper-slide class="min-h-[500px] lg:min-h-[480px] relative z-[1]">
-                            <img src="~/assets/images/slider-bg.png" alt="" class="absolute w-full h-full z-[-1] top-0 left-0">
-                            <div class="absolute top-8 lg:top-0 left-0 lg:left-[120px] w-full lg:w-[480px] xl:w-[616px] h-full flex flex-col lg:justify-center items-center lg:items-start gap-[15px] lg:gap-[30px] px-[6px] lg:px-0">
-                                <h3 class="text-4xl lg:text-[56px] leading-10 lg:leading-[64px] font-normal lg:font-semibold tracking-[-1px] text-center lg:text-start">Запасные части для палетоперевозчиков</h3>
-                                <Btn class="w-[268px] h-[59px]">подобрать</Btn>
-                            </div>
-                            <img src="~/assets/images/spare-swp-4.png" alt="" class="h-[329px] lg:h-auto w-full lg:w-[630px] xl:w-[634px] object-contain absolute bottom-0 lg:bottom-auto lg:top-2/4 lg:-translate-y-2/4  -right-10 xl:right-10 z-[-1]">
-                        </swiper-slide>
-                        <swiper-slide class="min-h-[500px] lg:min-h-[480px] relative z-[1]">
-                            <img src="~/assets/images/slider-bg.png" alt="" class="absolute w-full h-full z-[-1] top-0 left-0">
-                            <div class="absolute top-8 lg:top-0 left-0 lg:left-[120px] w-full lg:w-[480px] xl:w-[616px] h-full flex flex-col lg:justify-center items-center lg:items-start gap-[15px] lg:gap-[30px] px-[6px] lg:px-0">
-                                <h3 class="text-4xl lg:text-[56px] leading-10 lg:leading-[64px] font-normal lg:font-semibold tracking-[-1px] text-center lg:text-start">Запасные части для узкопроходных машин</h3>
-                                <Btn class="w-[268px] h-[59px]">подобрать</Btn>
-                            </div>
-                            <img src="~/assets/images/spare-swp-5.png" alt="" class="h-[300px] lg:h-auto w-full lg:w-[560px] xl:w-[571px] object-contain absolute -bottom-3 lg:bottom-auto lg:top-2/4 lg:-translate-y-2/4  lg:right-10 xl:right-[160px] z-[-1]">
-                        </swiper-slide>
+
                     </swiper>
                     <button ref="prev" class="absolute z-[1] left-[10px] lg:left-10 top-2/4 -translate-y-2/4">
                         <img src="~/assets/images/swp-btn.svg" alt="">
@@ -141,7 +111,18 @@ export default {
         </section>
         <!-- Spare parts end -->
 
-        <Spare />
+        <section class="mb-[30px] lg:mb-[53px] bg-[linear-gradient(157.72deg,_rgb(142,142,142)_34.658%,_rgb(40,40,40)_74.923%,_rgb(80,80,80)_87.523%)] lg:bg-none">
+            <div class="container relative z-[1] text-white lg:bg-[linear-gradient(157.72deg,_rgb(142,142,142)_34.658%,_rgb(40,40,40)_74.923%,_rgb(80,80,80)_87.523%)] pt-6 pb-[232px] lg:pt-10 lg:pb-10 lg:px-[120px] rounded-[3px]">
+                <h2 class="mb-6 text-[36px] lg:text-5xl leading-10 lg:leading-[115%] tracking-[-0.4px] font-normal text-center lg:text-left" v-html="home?.sapre_second_title.replace(/\n/g, '<br>')"></h2>
+                <div class="flex flex-col lg:flex-row items-center gap-6">
+                    <Btn class="h-[60px] w-[278px]">{{ home?.spare_second_button }}</Btn>
+                    <p class="lowercase text-base leading-[120%] tracking-[0.15px]">
+                        Или <NuxtLink to="/">войдите в Личный кабинет</NuxtLink>
+                    </p>
+                </div>
+                <img src="~/assets/images/spare-car.png" alt="" class="absolute object-contain z-[-1] left-[50%] lg:left-auto -translate-x-2/4 lg:translate-x-0 bottom-0 lg:bottom-auto lg:right-[42px] lg:top-[-70px] 2xl:top-[-128px] min-w-[390px] w-[390px] lg:w-[580px] xl:w-[650px] 2xl:w-[777px]">
+            </div>
+        </section>
 
         <!-- Company -->
         <section class="mb-[30px] lg:mb-[60px] relative z-[1]">

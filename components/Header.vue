@@ -23,24 +23,24 @@ onBeforeMount(() => {
                     
             </NuxtLink>
             <div class="flex items-center gap-[30px]">
-                <a :href="'tel:' + info?.phone" class="flex items-center gap-[5px]">
-                    <img src="~/assets/images/phone.svg" alt="">
-                    <span class="font-semibold text-base leading-6 tracking-[-0.2px] text-black hidden lg:block">{{info?.phone}}</span>
+                <a :href="'tel:' + info?.contact_text" class="flex items-center gap-[5px]">
+                    <img :src="config.public.upload + info?.contact?.data?.attributes?.url" alt="">
+                    <span class="font-semibold text-base leading-6 tracking-[-0.2px] text-black hidden lg:block">{{info?.contact_text}}</span>
                 </a>
                 <ul class="flex items-center gap-[15px]">
                     <li>
-                        <a :href="info?.mail">
-                            <img src="~/assets/images/mail.svg" alt="">
+                        <a :href="'mailto:' + info?.mail_link">
+                            <img :src="config.public.upload + info?.mail?.data?.attributes?.url" alt="">
                         </a>
                     </li>
                     <li>
-                        <a :href="info?.telegram">
-                            <img src="~/assets/images/telegram.svg" alt="">
+                        <a :href="info?.telegram_link">
+                            <img :src="config.public.upload + info?.telegram?.data?.attributes?.url" alt="">
                         </a>
                     </li>
                     <li>
-                        <a :href="info?.whatsapp">
-                            <img src="~/assets/images/whatsapp.svg" alt="">
+                        <a :href="info?.whatsapp_link">
+                            <img :src="config.public.upload + info?.whatsapp?.data?.attributes?.url" alt="">
                         </a>
                     </li>
                 </ul>
