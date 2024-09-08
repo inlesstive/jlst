@@ -36,10 +36,6 @@ export default {
             store.fetchData();
         });
 
-        onMounted(() => {
-            const store = useCounterStore()
-            store.fetchData()
-        })
 
         return {
             prev,
@@ -56,7 +52,6 @@ export default {
 
 <template>
     <div class="lg:pt-4">
-
         <!-- Home -->
         <section class="relative z-[1] text-white pt-[80px] pb-[76px] lg:pt-[130px] lg:pb-[130px] mb-[30px] lg:mb-[38px]">
             <img src="~/assets/images/home-bg.png" alt="" class="absolute top-0 left-0 w-full h-full object-cover z-[-1]">
