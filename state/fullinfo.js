@@ -6,6 +6,7 @@ export const useCounterStore = defineStore('fullinfo', () => {
     const data = ref()
     const contact = ref()
     const contactList = ref()
+    const isLoading = ref(true)
     function fetchData() {
 
         axios.get('http://localhost:1337/api/info?populate=*', {
@@ -16,6 +17,7 @@ export const useCounterStore = defineStore('fullinfo', () => {
           })
           .then(response => {
             console.log(response.data.data.attributes);
+            isLoading.value = false
             data.value = response.data.data.attributes
           })
           .catch(error => {
@@ -32,6 +34,7 @@ export const useCounterStore = defineStore('fullinfo', () => {
         })
         .then(response => {
           console.log(response.data.data.attributes);
+          isLoading.value = false
           contact.value = response.data.data.attributes
         })
         .catch(error => {
@@ -48,6 +51,7 @@ export const useCounterStore = defineStore('fullinfo', () => {
       })
       .then(response => {
         console.log(response.data.data.attributes);
+        isLoading.value = false
         contactList.value = response.data.data
       })
       .catch(error => {
@@ -57,5 +61,5 @@ export const useCounterStore = defineStore('fullinfo', () => {
 
 
   
-    return { data, contact, contactList, fetchData, getContactData, getContactList  }
+    return { isLoading, data, contact, contactList, fetchData, getContactData, getContactList  }
   })

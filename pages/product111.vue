@@ -21,7 +21,10 @@ export default {
         const prev = ref(null);
         const next = ref(null);
         const thumbsSwiper = ref(null);
+        const store = useProductStore();
 
+        console.log(123);
+        
         const setThumbsSwiper = (swiper) => {
             thumbsSwiper.value = swiper;
         };

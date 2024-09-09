@@ -1,6 +1,9 @@
 <script setup>
 
-const isLoading = ref(false);
+const store1 = useHomeStore()
+const store2 = useCounterStore()
+const store3 = useProductStore()
+
 </script>
 
 
@@ -11,7 +14,7 @@ const isLoading = ref(false);
         <!-- Header end -->
 
 
-        <Loader class="loader" v-if="isLoading"/>
+        <Loader class="loader" v-if="store1.isLoading && store3.isLoading"/>
         <slot />
 
         <!-- Footer -->

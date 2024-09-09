@@ -5,6 +5,7 @@ import axios from 'axios'
 export const useHomeStore = defineStore('home', () => {
     const data = ref()
     const spare_list =  ref()
+    const isLoading = ref(true)
     function fetchData() {
         axios.get('http://localhost:1337/api/home?populate=*', {
             headers: {
@@ -15,6 +16,8 @@ export const useHomeStore = defineStore('home', () => {
           .then(response => {
             console.log(response.data.data.attributes);
             data.value = response.data.data.attributes
+            console.log('Смена прелоадера');
+            isLoading.value = false
           })
           .catch(error => {
             console.error('Error fetching data:', error);
@@ -30,11 +33,14 @@ export const useHomeStore = defineStore('home', () => {
         .then(response => {
           console.log(response.data.data);
           spare_list.value = response.data.data
+          console.log('Смена прелоадера');
+          
+          isLoading.value = false
         })
         .catch(error => {
           console.error('Error fetching data:', error);
         });
   }
   
-    return { data, spare_list, fetchData, fetchSpareList }
+    return { isLoading, data, spare_list, fetchData, fetchSpareList }
   })
