@@ -123,7 +123,7 @@ export default {
                 <img :src="config.public.upload + home?.spare_second_img?.data?.attributes?.url" alt="" class="absolute object-contain z-[-1] left-[50%] lg:left-auto -translate-x-2/4 lg:translate-x-0 bottom-0 lg:bottom-auto lg:right-[42px] lg:top-[-70px] 2xl:top-[-128px] min-w-[390px] w-[390px] lg:w-[580px] xl:w-[650px] 2xl:w-[777px]">
             </div>
         </section>
-
+        
         <!-- Company -->
         <section class="mb-[30px] lg:mb-[60px] relative z-[1]">
             <div class="container flex flex-col lg:flex-row items-center gap-6">
